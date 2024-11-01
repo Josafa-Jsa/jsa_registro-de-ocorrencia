@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Ocorrência</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Registro de Ocorrência</h1>
+
+    <!-- Dados da Empresa -->
+    <div class="section">
+        <h2>Dados da Empresa</h2>
+        <label>Logo da Empresa: <input type="file" id="logo-empresa"></label><br>
+        <label>Nome: <input type="text" id="nome-empresa"></label><br>
+        <label>Endereço: <input type="text" id="endereco-empresa"></label><br>
+        <label>Telefone: <input type="text" id="telefone-empresa"></label>
+    </div>
+
+    <!-- Data e Hora da Ocorrência -->
+    <div class="section">
+        <h2>Data e Hora da Ocorrência</h2>
+        <label>Data: <input type="date" id="data-ocorrencia"></label><br>
+        <label>Hora: <input type="time" id="hora-ocorrencia"></label>
+    </div>
+
+    <!-- Botões para abrir modais -->
+    <div class="section">
+        <button type="button" onclick="abrirModal('modal-envolvidos')">Adicionar Envolvidos</button>
+        <button type="button" onclick="abrirModal('modal-suspeitos')">Adicionar Suspeitos</button>
+        <button type="button" onclick="abrirModal('modal-itens')">Adicionar Itens Furtados</button>
+        <button type="button" onclick="abrirModal('modal-dvr')">Selecionar DVR e Canal</button>
+        <button type="button" onclick="abrirModal('modal-responsaveis')">Adicionar Responsáveis pela Condução</button>
+    </div>
+
+    <!-- Descrição do ocorrido -->
+    <div class="section">
+        <h2>Descrição do Ocorrido</h2>
+        <textarea id="descricao-ocorrido" rows="5" placeholder="Descreva o ocorrido..."></textarea>
+    </div>
+
+    <!-- Botões para gerar relatório e exportar -->
+    <div class="section">
+        <button type="button" onclick="gerarRelatorio()">Gerar Relatório</button>
+        <button type="button" onclick="exportarDOC()">Exportar em DOC</button>
+    </div>
+
+    <!-- Modal Envolvidos -->
+    <div id="modal-envolvidos" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal('modal-envolvidos')">&times;</span>
+            <h2>Adicionar Envolvidos</h2>
+            <label>Nome: <input type="text" id="nome-envolvido"></label><br>
+            <label>CPF: <input type="text" id="cpf-envolvido"></label><br>
+            <button type="button" onclick="fecharModal('modal-envolvidos')">Salvar Envolvido</button>
+        </div>
+    </div>
+
+    <!-- Modal Suspeitos -->
+    <div id="modal-suspeitos" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal('modal-suspeitos')">&times;</span>
+            <h2>Adicionar Suspeitos</h2>
+            <label>Nome Completo: <input type="text" id="nome-suspeito"></label><br>
+            <label>CPF: <input type="text" id="cpf-suspeito"></label><br>
+            <label>Data de Nascimento: <input type="date" id="nascimento-suspeito"></label><br>
+            <label>Endereço: <input type="text" id="endereco-suspeito"></label><br>
+            <label>Foto do Suspeito: <input type="file" id="foto-suspeito"></label><br>
+            <button type="button" onclick="fecharModal('modal-suspeitos')">Salvar Suspeito</button>
+        </div>
+    </div>
+
+    <!-- Modal Itens Furtados -->
+    <div id="modal-itens" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal('modal-itens')">&times;</span>
+            <h2>Adicionar Itens Furtados</h2>
+            <label>Item: <input type="text" id="item-furtado"></label><br>
+            <label>Valor: <input type="number" id="valor-item"></label><br>
+            <button type="button" onclick="fecharModal('modal-itens')">Salvar Item</button>
+        </div>
+    </div>
+
+    <!-- Modal DVR e Canal -->
+    <div id="modal-dvr" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal('modal-dvr')">&times;</span>
+            <h2>Selecionar DVR e Canal</h2>
+            <label>DVR: 
+                <select id="dvr-selecionado">
+                    <option value="201">DVR 201</option>
+                    <option value="202">DVR 202</option>
+                    <option value="203">DVR 203</option>
+                    <option value="204">DVR 204</option>
+                    <option value="205">DVR 205</option>
+                    <option value="206">DVR 206</option>
+                    <option value="207">DVR 207</option>
+                    <option value="208">DVR 208</option>
+                </select>
+            </label><br>
+            <label>Canal:
+                <select id="canal-selecionado">
+                    <option value="1">Canal 1</option>
+                    <option value="2">Canal 2</option>
+                    <option value="3">Canal 3</option>
+                    <option value="4">Canal 4</option>
+                    <option value="5">Canal 5</option>
+                    <option value="6">Canal 6</option>
+                    <option value="7">Canal 7</option>
+                    <option value="8">Canal 8</option>
+                    <option value="9">Canal 9</option>
+                    <option value="10">Canal 10</option>
+                    <option value="11">Canal 11</option>
+                    <option value="12">Canal 12</option>
+                </select>
+            </label><br>
+            <label>Data do Ocorrido: <input type="date" id="data-dvr"></label><br>
+            <label>Hora do Ocorrido: <input type="time" id="hora-dvr"></label><br>
+            <button type="button" onclick="fecharModal('modal-dvr')">Salvar Seleção</button>
+        </div>
+    </div>
+
+    <!-- Modal Responsáveis pela Condução -->
+    <div id="modal-responsaveis" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal('modal-responsaveis')">&times;</span>
+            <h2>Adicionar Responsáveis pela Condução</h2>
+            <label>Nome do Responsável: <input type="text" id="nome-responsavel"></label><br>
+            <label>RG do Responsável: <input type="text" id="rg-responsavel"></label><br>
+            <button type="button" onclick="fecharModal('modal-responsaveis')">Salvar Responsável</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
